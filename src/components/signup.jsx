@@ -44,7 +44,6 @@ const Signup = () => {
     if (error === null && data) {
       navigate(`/dashboard?${longLink ? `createNew=${longLink}` : ""}`);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [error, loading]);
 
   const handleSignup = async () => {

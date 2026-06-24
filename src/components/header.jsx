@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { logout } from "@/db/apiAuth";
 import useFetch from "@/hooks/use-fetch";
-import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar";
 import { LinkIcon, LogOut } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { BarLoader } from "react-spinners";
@@ -34,7 +34,10 @@ const Header = () => {
             <DropdownMenu>
               <DropdownMenuTrigger className="w-10 rounded-full overflow-hidden">
                 <Avatar>
-                  <AvatarImage src={user?.user_metadata?.profile_pic} />
+                  <AvatarImage
+                    src={user?.user_metadata?.profile_pic}
+                    className="object-contain"
+                  />
                   <AvatarFallback>PA</AvatarFallback>
                 </Avatar>
               </DropdownMenuTrigger>
