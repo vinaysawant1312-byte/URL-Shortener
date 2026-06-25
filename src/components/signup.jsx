@@ -92,6 +92,7 @@ const Signup = () => {
             type="text"
             placeholder="Enter Name"
             onChange={handleInputChange}
+            className=" border-2 rounded-lg  border-b-amber-200 "
           />
         </div>
         {errors.name && <Error message={errors.name} />}
@@ -101,6 +102,7 @@ const Signup = () => {
             type="email"
             placeholder="Enter Email"
             onChange={handleInputChange}
+            className=" border-2 rounded-lg  border-b-amber-200 "
           />
         </div>
         {errors.email && <Error message={errors.email} />}
@@ -110,6 +112,7 @@ const Signup = () => {
             type="password"
             placeholder="Enter Password"
             onChange={handleInputChange}
+            className=" border-2 rounded-lg  border-b-amber-200 "
           />
         </div>
         {errors.password && <Error message={errors.password} />}
@@ -119,12 +122,13 @@ const Signup = () => {
             type="file"
             accept="image/*"
             onChange={handleInputChange}
+            className=" mt-4 border-2 rounded-lg p-4"
           />
         </div>
         {errors.profile_pic && <Error message={errors.profile_pic} />}
       </CardContent>
       <CardFooter>
-        <Button onClick={handleSignup}>
+        <Button onClick={handleSignup} className="rounded-2xl">
           {loading ? (
             <BeatLoader size={10} color="#36d7b7" />
           ) : (

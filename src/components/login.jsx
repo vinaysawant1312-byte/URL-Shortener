@@ -82,12 +82,13 @@ const Login = () => {
         {error && <Error message={error.message} />}
       </CardHeader>
       <CardContent className="space-y-2">
-        <div className="space-y-1">
+        <div className="space-y-1 ">
           <Input
             name="email"
             type="email"
             placeholder="Enter Email"
             onChange={handleInputChange}
+            className=" border-2 rounded-lg  border-b-amber-200 "
           />
         </div>
         {errors.email && <Error message={errors.email} />}
@@ -97,12 +98,13 @@ const Login = () => {
             type="password"
             placeholder="Enter Password"
             onChange={handleInputChange}
+            className=" border-2 rounded-lg  border-b-amber-200 "
           />
         </div>
         {errors.password && <Error message={errors.password} />}
       </CardContent>
       <CardFooter>
-        <Button onClick={handleLogin}>
+        <Button onClick={handleLogin} className="rounded-2xl">
           {loading ? <BeatLoader size={10} color="#36d7b7" /> : "Login"}
         </Button>
       </CardFooter>

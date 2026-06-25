@@ -31,14 +31,18 @@ const Landing = () => {
           type="url"
           value={longUrl}
           placeholder="Enter your loooooong url"
-          className="h-full flex-1 py-4 px-4"
+          className="h-full flex-1 py-4 px-4 border-2 border-amber-200"
           onChange={(e) => setLongUrl(e.target.value)}
         />
-        <Button variant="destructive" type="submit">
+        <Button
+          type="submit"
+          variant="destructive"
+          className="rounded-lg p-6 bg-red-500 text-white "
+        >
           Shorten!
         </Button>
       </form>
-      <img src="/banner.png" alt="banner" className="w-full my-11 md : px-11" />
+      <img src="/banner.png" alt="banner" className="w-full my-11 md:px-11 " />
       <Accordion type="multiple" className="w-full md:px-11">
         <AccordionItem value="item-1">
           <AccordionTrigger>

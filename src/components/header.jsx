@@ -25,11 +25,17 @@ const Header = () => {
     <>
       <nav className="py-4 flex justify-between items-center">
         <Link to="/">
-          <img src="/logo.png" className="h-16" alt="Trimrr Logo" />
+          <img
+            src="/logo.png"
+            className="h-16 ml-3 md:ml-13"
+            alt="Trimrr Logo "
+          />
         </Link>
-        <div className="flex gap-4">
+        <div className="flex gap-4  mr-3 md:mr-13">
           {!user ? (
-            <Button onClick={() => navigate("/auth")}>Login</Button>
+            <Button onClick={() => navigate("/auth")} className="rounded-2xl">
+              Login
+            </Button>
           ) : (
             <DropdownMenu>
               <DropdownMenuTrigger className="w-10 rounded-full overflow-hidden">

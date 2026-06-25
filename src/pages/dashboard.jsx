@@ -44,11 +44,11 @@ const Dashborad = () => {
     url.title.toLowerCase().includes(searchQuery.toLowerCase()),
   );
   return (
-    <div className="flex flex-col gap-8">
+    <div className="flex flex-col gap-8 md:mx-15">
       {loading ||
         (loadingClicks && <BarLoader width={"100%"} color="#36d7b7}" />)}
       <div className="grid grid-cols-2 gap-4">
-        <Card>
+        <Card className="bg-[oklch(0.147_0.004_49.3)] border-2  rounded-lg ">
           <CardHeader>
             <CardTitle>Links Created</CardTitle>
           </CardHeader>
@@ -56,7 +56,7 @@ const Dashborad = () => {
             <p>{urls?.length}</p>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="bg-[oklch(0.147_0.004_49.3)] border-2  rounded-lg ">
           <CardHeader>
             <CardTitle>Total Clicks</CardTitle>
           </CardHeader>
@@ -75,6 +75,7 @@ const Dashborad = () => {
           placeholder="Filter Links ..."
           value={searchQuery}
           onChange={() => setSearchQuery(e.target.value)}
+          className="border-blue-850 "
         />
         <Filter className="absolute top-2 right-2" />
       </div>

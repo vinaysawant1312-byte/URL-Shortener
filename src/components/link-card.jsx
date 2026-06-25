@@ -1,8 +1,25 @@
 import { Link } from "react-router-dom";
+import { Button } from "./ui/button";
+import { Copy, Download, Trash } from "lucide-react";
+import useFetch from "@/hooks/use-fetch";
+import { deleteUrl } from "@/db/apiUrls";
 
 const LinkCard = ({ url, fetchUrls }) => {
+  const downloadImage = () => {
+    const imageUrl = url?.qr;
+    const fileName = url?.title;
+
+    const anchor = document.createElement("a");
+    anchor.href = imageUrl;
+    anchor.download = fileName;
+
+    document.body.appendChild(anchor);
+    anchor.click();
+    document.body.removeChild(anchor);
+  };
+  const { loading: loadingDelete, fn: fnDelete } = useFetch(deleteUrl, url?.id);
   return (
-    <div className="flex felx-col md:flex-row gap-5 border p-4 bg-gray-900 rounded-lg">
+    <div className="flex felx-col md:flex-row gap-5 border p-4 bg-gray-900 rounded-lg ">
       <img
         src={url?.qr}
         alt="qr code"
@@ -22,6 +39,24 @@ const LinkCard = ({ url, fetchUrls }) => {
           {new Date(url?.created_at).toLocaleString()}
         </span>
       </Link>
+      <div className="flex gap-2">
+        <Button
+          variant="ghost"
+          onClick={() =>
+            navigator.clipboard.writeText(
+              `https://LinkVin.in/${url?.short_url}`,
+            )
+          }
+        >
+          <Copy />
+        </Button>
+        <Button variant="ghost" onClick={downloadImage}>
+          <Download />
+        </Button>
+        <Button variant="ghost" onClick={() => fnDelete.then(() => fetchUrls)}>
+          {loadingDelete ? <BeatLoader /> : <Trash />}
+        </Button>
+      </div>
     </div>
   );
 };
