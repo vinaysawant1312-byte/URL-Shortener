@@ -92,7 +92,6 @@ const Signup = () => {
             type="text"
             placeholder="Enter Name"
             onChange={handleInputChange}
-            className=" border-2 rounded-lg  border-b-amber-200 "
           />
         </div>
         {errors.name && <Error message={errors.name} />}
@@ -102,7 +101,6 @@ const Signup = () => {
             type="email"
             placeholder="Enter Email"
             onChange={handleInputChange}
-            className=" border-2 rounded-lg  border-b-amber-200 "
           />
         </div>
         {errors.email && <Error message={errors.email} />}
@@ -112,7 +110,6 @@ const Signup = () => {
             type="password"
             placeholder="Enter Password"
             onChange={handleInputChange}
-            className=" border-2 rounded-lg  border-b-amber-200 "
           />
         </div>
         {errors.password && <Error message={errors.password} />}
@@ -122,7 +119,7 @@ const Signup = () => {
             type="file"
             accept="image/*"
             onChange={handleInputChange}
-            className=" mt-4 border-2 rounded-lg p-4"
+            className=" mt-2 border-2 rounded-lg p-4 "
           />
         </div>
         {errors.profile_pic && <Error message={errors.profile_pic} />}

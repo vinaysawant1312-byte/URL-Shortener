@@ -88,7 +88,6 @@ const Login = () => {
             type="email"
             placeholder="Enter Email"
             onChange={handleInputChange}
-            className=" border-2 rounded-lg  border-b-amber-200 "
           />
         </div>
         {errors.email && <Error message={errors.email} />}
@@ -98,7 +97,6 @@ const Login = () => {
             type="password"
             placeholder="Enter Password"
             onChange={handleInputChange}
-            className=" border-2 rounded-lg  border-b-amber-200 "
           />
         </div>
         {errors.password && <Error message={errors.password} />}

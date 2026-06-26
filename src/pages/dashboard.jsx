@@ -41,13 +41,13 @@ const Dashboard = () => {
   }, [urls?.length]);
 
   return (
-    <div className="flex flex-col gap-8">
+    <div className="flex flex-col gap-8 mx-5 md:mx-15">
       <Toaster richColors />
       {(loading || loadingClicks) && (
         <BarLoader width={"100%"} color="#36d7b7" />
       )}
       <div className="grid grid-cols-2 gap-4">
-        <Card>
+        <Card className="bg-[oklch(0.147 0.004 49.3)] border-lg rounded-lg">
           <CardHeader>
             <CardTitle>Links Created</CardTitle>
           </CardHeader>
@@ -55,7 +55,7 @@ const Dashboard = () => {
             <p>{urls?.length}</p>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="bg-[oklch(0.147 0.004 49.3)] border-lg rounded-lg">
           <CardHeader>
             <CardTitle>Total Clicks</CardTitle>
           </CardHeader>
