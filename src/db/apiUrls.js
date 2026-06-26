@@ -25,39 +25,40 @@ export async function deleteUrl(id) {
   return data;
 }
 
-export async function createUrl({
-  title,
-  longurl,
-  customUrl,
-  user_id,
+export async function createUrl(
+  { title, longUrl, customUrl, user_id },
   qrcode,
-}) {
-  const short_url = Math().random().tostring(36).substring(2, 6);
+) {
+  const short_url = Math.random().toString(36).substring(2, 6);
   const fileName = `qr-${short_url}`;
+
   const { error: storageError } = await supabase.storage
     .from("qrs")
-    .upload(fileName, qrcode);
+    .upload(fileName, qrcode, {
+      contentType: "image/png", // ← add this
+    });
 
   if (storageError) throw new Error(storageError.message);
 
-  const qr = `${supabaseUrl}/storage/v1/object/sign/profile_pic/${fileName}`;
+  const qr = `${supabaseUrl}/storage/v1/object/public/qrs/${fileName}`;
 
   let { data, error } = await supabase
     .from("urls")
     .insert([
       {
         title,
-        original_url: longurl,
+        original_url: longUrl,
+        short_url,
         custom_url: customUrl || null,
         user_id,
-        qrcode,
+        qr, // ← changed from qrcode: qr
       },
     ])
     .select();
 
   if (error) {
-    console.error(error);
-    throw new Error("Error creating short URL");
+    console.error("Supabase insert error:", error);
+    throw new Error(error.message); // ← shows real error going forward
   }
 
   return data;

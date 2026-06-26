@@ -1,41 +1,54 @@
+import { Copy, Download, LinkIcon, Trash } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "./ui/button";
-import { Copy, Download, Trash } from "lucide-react";
 import useFetch from "@/hooks/use-fetch";
 import { deleteUrl } from "@/db/apiUrls";
+import { BeatLoader } from "react-spinners";
 
-const LinkCard = ({ url, fetchUrls }) => {
-  const downloadImage = () => {
+const LinkCard = ({ url = [], fetchUrls }) => {
+  const downloadImage = async () => {
     const imageUrl = url?.qr;
     const fileName = url?.title;
 
-    const anchor = document.createElement("a");
-    anchor.href = imageUrl;
-    anchor.download = fileName;
+    try {
+      const response = await fetch(imageUrl);
+      const blob = await response.blob();
+      const blobUrl = window.URL.createObjectURL(blob);
 
-    document.body.appendChild(anchor);
-    anchor.click();
-    document.body.removeChild(anchor);
+      const anchor = document.createElement("a");
+      anchor.href = blobUrl;
+      anchor.download = fileName;
+      document.body.appendChild(anchor);
+      anchor.click();
+      document.body.removeChild(anchor);
+
+      window.URL.revokeObjectURL(blobUrl); // cleanup
+    } catch (error) {
+      console.error("Download failed:", error);
+    }
   };
-  const { loading: loadingDelete, fn: fnDelete } = useFetch(deleteUrl, url?.id);
+
+  const { loading: loadingDelete, fn: fnDelete } = useFetch(deleteUrl, url.id);
+
   return (
-    <div className="flex felx-col md:flex-row gap-5 border p-4 bg-gray-900 rounded-lg ">
+    <div className="flex flex-col md:flex-row gap-5 border p-4 bg-gray-900 rounded-lg">
       <img
         src={url?.qr}
+        className="h-32 object-contain ring ring-blue-500 self-start"
         alt="qr code"
-        className=" h-32 object-contain ring ring-blue-500 self-start"
       />
       <Link to={`/link/${url?.id}`} className="flex flex-col flex-1">
-        <span className="text-3xl font-extrabold hover:underline curser-pointer">
+        <span className="text-3xl font-extrabold hover:underline cursor-pointer">
           {url?.title}
         </span>
         <span className="text-2xl text-blue-400 font-bold hover:underline cursor-pointer">
-          https://trimrr.in/{url?.custom_url ? url?.custom_url : url?.short_url}
+          https://trimrr.in/{url?.custom_url ? url?.custom_url : url.short_url}
         </span>
         <span className="flex items-center gap-1 hover:underline cursor-pointer">
+          <LinkIcon className="p-1" />
           {url?.original_url}
         </span>
-        <span className="flex items-end font-extralight text-sm hover:underline cursor-pointer">
+        <span className="flex items-end font-extralight text-sm flex-1">
           {new Date(url?.created_at).toLocaleString()}
         </span>
       </Link>
@@ -43,9 +56,7 @@ const LinkCard = ({ url, fetchUrls }) => {
         <Button
           variant="ghost"
           onClick={() =>
-            navigator.clipboard.writeText(
-              `https://LinkVin.in/${url?.short_url}`,
-            )
+            navigator.clipboard.writeText(`https://trimrr.in/${url?.short_url}`)
           }
         >
           <Copy />
@@ -53,8 +64,12 @@ const LinkCard = ({ url, fetchUrls }) => {
         <Button variant="ghost" onClick={downloadImage}>
           <Download />
         </Button>
-        <Button variant="ghost" onClick={() => fnDelete.then(() => fetchUrls)}>
-          {loadingDelete ? <BeatLoader /> : <Trash />}
+        <Button
+          variant="ghost"
+          onClick={() => fnDelete().then(() => fetchUrls())}
+          disabled={loadingDelete}
+        >
+          {loadingDelete ? <BeatLoader size={5} color="white" /> : <Trash />}
         </Button>
       </div>
     </div>
