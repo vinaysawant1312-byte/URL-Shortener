@@ -21,9 +21,11 @@ const RedirectLink = () => {
 
   useEffect(() => {
     if (!loading && data) {
-      fnStats();
+      fnStats().then(() => {
+        window.location.href = data.original_url; // ← actual redirect
+      });
     }
-  }, [loading]);
+  }, [loading, data]);
 
   if (loading || loadingStats) {
     return (
