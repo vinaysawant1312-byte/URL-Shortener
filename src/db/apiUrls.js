@@ -51,7 +51,7 @@ export async function createUrl(
   const { error: storageError } = await supabase.storage
     .from("qrs")
     .upload(fileName, qrcode, {
-      contentType: "image/png", // ← add this
+      contentType: "image/png", // add this
     });
 
   if (storageError) throw new Error(storageError.message);
@@ -67,14 +67,14 @@ export async function createUrl(
         short_url,
         custom_url: customUrl || null,
         user_id,
-        qr, // ← changed from qrcode: qr
+        qr, //  changed from qrcode: qr
       },
     ])
     .select();
 
   if (error) {
     console.error("Supabase insert error:", error);
-    throw new Error(error.message); // ← shows real error going forward
+    throw new Error(error.message); //  shows real error going forward
   }
 
   return data;

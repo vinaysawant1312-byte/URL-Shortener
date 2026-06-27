@@ -75,7 +75,7 @@ export function CreateLink({ fetchUrls }) {
       const canvas = ref.current.canvasRef.current;
 
       const blob = await new Promise(
-        (resolve) => canvas.toBlob(resolve, "image/png"), // ← explicitly set mime type
+        (resolve) => canvas.toBlob(resolve, "image/png"), // explicitly set mime type
       );
 
       console.log("blob:", blob); // should show size > 0 and type: image/png
@@ -123,7 +123,7 @@ export function CreateLink({ fetchUrls }) {
         />
         {errors.longUrl && <Error message={errors.longUrl} />}
         <div className="flex items-center gap-2">
-          <Card className="p-2">trimrr.in</Card> /
+          <Card className="p-2">url-shortener-peach-one.vercel.app</Card> /
           <Input
             id="customUrl"
             placeholder="Custom Link (optional)"
