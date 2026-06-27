@@ -22,7 +22,7 @@ const RedirectLink = () => {
   useEffect(() => {
     if (!loading && data) {
       fnStats().then(() => {
-        window.location.href = data.original_url; // ← actual redirect
+        window.location.href = data.original_url; // actual redirect
       });
     }
   }, [loading, data]);

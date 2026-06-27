@@ -12,12 +12,13 @@ import RequireAuth from "./components/require-auth";
 
 const router = createBrowserRouter([
   {
+    path: "/:id",
+    element: <RedirectLink />, //  outside AppLayout
+  },
+  {
     element: <AppLayout />,
     children: [
-      {
-        path: "/",
-        element: <Landing />,
-      },
+      { path: "/", element: <Landing /> },
       {
         path: "/dashboard",
         element: (
@@ -26,10 +27,7 @@ const router = createBrowserRouter([
           </RequireAuth>
         ),
       },
-      {
-        path: "/auth",
-        element: <Auth />,
-      },
+      { path: "/auth", element: <Auth /> },
       {
         path: "/link/:id",
         element: (
@@ -37,10 +35,6 @@ const router = createBrowserRouter([
             <Link />
           </RequireAuth>
         ),
-      },
-      {
-        path: "/:id",
-        element: <RedirectLink />,
       },
     ],
   },
