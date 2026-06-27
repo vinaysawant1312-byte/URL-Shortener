@@ -44,6 +44,7 @@ const Signup = () => {
     if (error === null && data) {
       navigate(`/dashboard?${longLink ? `createNew=${longLink}` : ""}`);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [error, loading]);
 
   const handleSignup = async () => {
@@ -119,13 +120,12 @@ const Signup = () => {
             type="file"
             accept="image/*"
             onChange={handleInputChange}
-            className=" mt-2 border-2 rounded-lg p-4 "
           />
         </div>
         {errors.profile_pic && <Error message={errors.profile_pic} />}
       </CardContent>
       <CardFooter>
-        <Button onClick={handleSignup} className="rounded-2xl">
+        <Button onClick={handleSignup}>
           {loading ? (
             <BeatLoader size={10} color="#36d7b7" />
           ) : (
